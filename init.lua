@@ -1,8 +1,9 @@
 
 
--- Load vim_compat.vim to ensure compatibility with Vim settings
+-- Load vimrc
 local vimrc = vim.fn.stdpath("config") .. "/vimrc"
 vim.cmd.source(vimrc)
+
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -28,7 +29,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-
 local function read_file(path)
   local file = io.open(path, "r") -- Open file in read mode
   if not file then return nil end  -- Return nil if file not found
@@ -41,7 +41,6 @@ local function read_copilot_prompt(name)
   local prompt = read_file(vim.fn.expand("~/.config/nvim/copilot_prompts/" .. name .. ".txt"))
   return prompt
 end
-
 
 -- Configuring lazy.vim
 require("lazy").setup({
@@ -64,6 +63,25 @@ require("lazy").setup({
       },
       build = "make tiktoken", -- Only on MacOS or Linux
       opts = {},
+    },
+    {
+      "nvim-treesitter/nvim-treesitter"
+    },
+    {
+      'nvim-telescope/telescope.nvim', tag = '0.1.8',
+      dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    { 'nvim-telescope/telescope-ui-select.nvim' },
+    {
+      'goolord/alpha-nvim',
+      dependencies = { 'echasnovski/mini.icons' },
+      config = function ()
+        local alpha = require'alpha'
+        local theme = require'alpha.themes.theta'
+        alpha.setup(theme.config)
+      end,
+      opts = { position =  'center' },
     },
     -- Vim Plugins
     { "tpope/vim-fugitive" },
@@ -97,21 +115,58 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
+-- Setting color preferences
+vim.cmd[[colorscheme kyotonight]]
+vim.cmd[[colorscheme dogrun]]
+
+
+-- This is your opts table
+require("telescope").setup {
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+    }
+  }
+}
+
+require("telescope").load_extension("ui-select")
+
 require("CopilotChat").setup {
   prompts = {
-    WithStyle = {
+    StyleGuide = {
         system_prompt = read_copilot_prompt("style_guide"),
     },
-    Yarr = {
-        system_prompt = 'You are fascinated by pirates, so please respond in pirate speak.',
-    },
-    -- MyCustomPrompt = {
-    --   prompt = 'Explain how it works.',
-    --   system_prompt = 'You are very good at explaining stuff',
-    --   mapping = '<leader>ccmc',
-    --   description = 'My custom prompt description',
-    -- }
+  },
+}
+
+-- Overwriting the base CopilotChat system prompt
+local prompts = require("CopilotChat.config.prompts")
+prompts.COPILOT_BASE.system_prompt = prompts.COPILOT_BASE.system_prompt .. read_copilot_prompt("base")
+
+vim.filetype.add({
+  filename = {
+    ["copilot-chat"] = "copilot-chat",
   }
+})
+
+vim.treesitter.language.register("markdown", "copilot-chat")
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "markdown",
+    "markdown_inline",
+    "lua",
+    "python",
+    "javascript",
+    "typescript",
+    "rust",
+  },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "markdown" },
+  },
 }
 
 -- Automatically source this file after saving it,
@@ -139,6 +194,5 @@ vim.api.nvim_create_user_command("Conf", ":tabe ~/.config/nvim/init.lua", { narg
 -- Creating a shortcut for the CopilotChat command
 vim.api.nvim_create_user_command("Cc", "CopilotChat <args>", { nargs = "*" })
 
-vim.cmd[[colorscheme kyotonight]]
-vim.cmd[[colorscheme dogrun]]
+
 

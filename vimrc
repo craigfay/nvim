@@ -33,10 +33,11 @@ let mapleader = ','
 "Quickly edit the default vimrc file with `,drc`
 nmap <Leader>drc :tabedit $MYVIMRC<cr>
 
-"Quickly edit ~/.vim/vimrc file with `,rc`
-"This is helpful when you're using neovim,
-"where $MYVIMRC will point to neovim config
-nmap <Leader>rc :tabedit ~/.config/nvim/init.lua<cr>
+"Quickly edit vimrc file with `,rc`
+nmap <Leader>rc :tabedit ~/.config/nvim/vimrc<cr>
+
+"Quickly edit init.lua file with `,il`
+nmap <Leader>il :tabedit ~/.config/nvim/init.lua<cr>
 
 "Quickly edit the shell profile with `,pr`
 nmap <Leader>pr :tabedit ~/.profile<cr>
@@ -49,6 +50,9 @@ nmap <Leader>e :e .<cr>
 
 "Quickly open a file explorer (in a vertical split) with `,v`
 nmap <Leader>v :vs .<cr>
+
+"Quickly open a new tab with `,t`
+nmap <Leader>t :tabe .<cr>
 
 "Quickly open a file explorer (in a horizontal split) with `,s`
 nmap <Leader>s :sp .<cr>
@@ -225,9 +229,6 @@ set laststatus=2
 "Highlight marked files in netrw
 hi! link netrwMarkFile Search
 
-"Enable Nested Syntax Highlighting in Markdown Files
-let g:markdown_fenced_languages = ['html', 'python', 'js', 'rust']
-
 "Keep the current dir and browsing dir synced
 "This helps avoid errors when moving marked files
 let g:netrw_keepdir = 0
@@ -261,4 +262,8 @@ nmap <Leader>rf :LspReferences<CR>
 "Use `gb` to go open a list of buffers.
 "Then enter the desired number and press enter to open it.
 nnoremap gb :ls<CR>:b<Space>
+
+let g:copilot_filetypes = {
+  \ 'copilot-chat': v:false,
+  \ }
 
