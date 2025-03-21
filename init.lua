@@ -38,7 +38,7 @@ local function read_file(path)
 end
 
 local function read_copilot_prompt(name)
-  local prompt = read_file(vim.fn.expand("~/.config/nvim/copilot_prompts/" .. name .. ".txt"))
+  local prompt = read_file(vim.fn.expand("~/.config/nvim/copilot_prompts/" .. name))
   return prompt
 end
 
@@ -133,26 +133,7 @@ require("telescope").setup {
 
 require("telescope").load_extension("ui-select")
 
-require("CopilotChat").setup {
-  prompts = {
-    StyleGuide = {
-        system_prompt = read_copilot_prompt("style_guide"),
-    },
-    Yarr = {
-      system_prompt = 'You are fascinated by pirates, so please respond in pirate speak.',
-    },
-  },
-}
 
--- Overwriting the base CopilotChat system prompt
-local prompts = require("CopilotChat.config.prompts")
-prompts.COPILOT_BASE.system_prompt = prompts.COPILOT_BASE.system_prompt .. read_copilot_prompt("base")
-
-vim.filetype.add({
-  filename = {
-    ["copilot-chat"] = "copilot-chat",
-  }
-})
 
 vim.treesitter.language.register("markdown", "copilot-chat")
 
@@ -172,13 +153,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- Automatically source this file after saving it,
--- suppressing any output from the command
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = vim.fn.expand("~/.config/nvim/init.lua"),
-  command = "silent! source %"
-})
-
 -- Automatically change directory to the current file's directory
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
@@ -191,7 +165,38 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
+require("CopilotChat").setup {
+  prompts = {
+    BasePrompt = {
+        system_prompt = read_copilot_prompt("base.instruct.md"),
+    },
+  },
+}
+
+-- Overwriting the base CopilotChat system prompt
+-- local prompts = require("CopilotChat.config.prompts")
+-- prompts.COPILOT_BASE.system_prompt = prompts.COPILOT_BASE.system_prompt .. read_copilot_prompt("base.instruct.md")
+
+vim.filetype.add({
+  filename = {
+    ["copilot-chat"] = "copilot-chat",
+  }
+})
+
 -- Creating a shortcut for the CopilotChat command
 vim.api.nvim_create_user_command("Cc", "CopilotChat <args>", { nargs = "*" })
+
+vim.api.nvim_set_keymap('n', '<leader>p', ':e ~/.config/nvim/copilot_prompts', { noremap = true, silent = true })
+-- 
+-- 
+vim.api.nvim_create_user_command("Cc", function()
+  vim.cmd("CopilotChat")
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes("> /BasePrompt\n#buffers\n\b\b\n", true, true, true),
+    'n',
+    true
+  )
+  vim.cmd("startinsert")
+end, { nargs = "*" })
 
 

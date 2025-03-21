@@ -88,6 +88,11 @@ augroup autosourcing
   autocmd BufWritePost ~/.config/nvim/vimrc source %
 augroup END
 
+augroup nv_autosourcing
+  autocmd!
+  autocmd BufWritePost ~/.config/nvim/init.lua silent! source %
+augroup END
+
 "Use incremental search
 set incsearch
 
@@ -267,3 +272,4 @@ let g:copilot_filetypes = {
   \ 'copilot-chat': v:false,
   \ }
 
+nmap <Leader>p :e ~/.config/nvim/copilot_prompts<CR>
