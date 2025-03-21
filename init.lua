@@ -199,4 +199,9 @@ vim.api.nvim_create_user_command("Cc", function()
   vim.cmd("startinsert")
 end, { nargs = "*" })
 
+vim.api.nvim_create_user_command('Checkout', function()
+  local current_file = vim.fn.expand('%')
+  vim.cmd('silent! !git checkout ' .. current_file)
+  vim.cmd('edit!')
+end, {})
 
