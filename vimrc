@@ -34,10 +34,10 @@ let mapleader = ','
 nmap <Leader>drc :tabedit $MYVIMRC<cr>
 
 "Quickly edit vimrc file with `,rc`
-nmap <Leader>rc :tabedit ~/.config/nvim/vimrc<cr>
+nmap <Leader>rc :e ~/.config/nvim/vimrc<cr>
 
 "Quickly edit init.lua file with `,il`
-nmap <Leader>il :tabedit ~/.config/nvim/init.lua<cr>
+nmap <Leader>il :e ~/.config/nvim/init.lua<cr>
 
 "Quickly edit the shell profile with `,pr`
 nmap <Leader>pr :tabedit ~/.profile<cr>

@@ -138,6 +138,9 @@ require("CopilotChat").setup {
     StyleGuide = {
         system_prompt = read_copilot_prompt("style_guide"),
     },
+    Yarr = {
+      system_prompt = 'You are fascinated by pirates, so please respond in pirate speak.',
+    },
   },
 }
 
@@ -188,11 +191,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
--- Creating a shortcut for opening this file
-vim.api.nvim_create_user_command("Conf", ":tabe ~/.config/nvim/init.lua", { nargs = "*" })
-
 -- Creating a shortcut for the CopilotChat command
 vim.api.nvim_create_user_command("Cc", "CopilotChat <args>", { nargs = "*" })
-
 
 
