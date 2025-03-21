@@ -1,0 +1,1 @@
+At the beginning of every code block, add a comment that says:\n"Copilot was here"
