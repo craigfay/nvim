@@ -39,9 +39,10 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Prevent default "Q" behavior, because it sucks
 vim.keymap.set("n", "Q", "<nop>")
 
--- Format the current buffer using LSP
+-- Format the current buffer using LSP, and
 vim.keymap.set("n", "<leader>f", function()
-	require("conform").format({ bufnr = 0 })
+    require("conform").format({ bufnr = 0 })
+    vim.cmd("normal! gg=G")
 end)
 
 -- Improving navigation for the quickfix list

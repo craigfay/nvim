@@ -8,6 +8,8 @@ local root_files = {
   'selene.toml',
   'selene.yml',
   '.git',
+  'package.json',
+  'Cargo.toml',
 }
 
 

@@ -5,6 +5,7 @@ vim.cmd.source(vimrc)
 
 require("2025.set")
 require("2025.remap")
+require("2025.style")
 require("2025.lazy_init")
 
 
