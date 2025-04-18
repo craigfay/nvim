@@ -13,9 +13,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
--- Don't wrap lines
-vim.opt.wrap = false
-
 -- Don't use backups, but do save the undo tree
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -28,9 +25,9 @@ vim.opt.incsearch = true
 
 -- Enabling more accurate colors
 vim.opt.termguicolors = true
-
-vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
 
+vim.o.scrolloff = 0
 vim.opt.updatetime = 50
+
+-- vim.opt.isfname:append("@-@")
