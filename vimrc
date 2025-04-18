@@ -36,8 +36,8 @@ nmap <Leader>drc :tabedit $MYVIMRC<cr>
 "Quickly edit vimrc file with `,rc`
 nmap <Leader>rc :e ~/.config/nvim/vimrc<cr>
 
-"Quickly edit init.lua file with `,il`
-nmap <Leader>il :e ~/.config/nvim/init.lua<cr>
+"Quickly jump to the nvim config directory
+nmap <Leader>il :e ~/.config/nvim<cr>
 
 "Quickly edit the shell profile with `,pr`
 nmap <Leader>pr :tabedit ~/.profile<cr>
