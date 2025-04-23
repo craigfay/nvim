@@ -40,10 +40,10 @@ autocmd({"BufWritePre"}, {
 autocmd('BufEnter', {
     group = MainGroup,
     callback = function()
-        if vim.bo.filetype == "go" then
-            vim.cmd.colorscheme("doom-one")
-        else
+        if vim.bo.filetype == "zig" then
             vim.cmd.colorscheme("dogrun")
+        else
+            vim.cmd.colorscheme("doom-one")
         end
     end
 })
