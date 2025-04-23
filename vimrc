@@ -36,9 +36,6 @@ nmap <Leader>drc :tabedit $MYVIMRC<cr>
 "Quickly edit vimrc file with `,rc`
 nmap <Leader>rc :e ~/.config/nvim/vimrc<cr>
 
-"Quickly edit init.lua file with `,il`
-nmap <Leader>il :e ~/.config/nvim/init.lua<cr>
-
 "Quickly edit the shell profile with `,pr`
 nmap <Leader>pr :tabedit ~/.profile<cr>
 
@@ -137,17 +134,6 @@ nnoremap <C-p> :find ./**/*
 
 "Remapping scrolling behavior to use CTRL + J and CTRL + K,
 "and SHIFT to scroll much faster
-
-"nnoremap <C-k> <C-y>
-"nnoremap <C-j> <C-e>
-"nnoremap <S-C-k> 15<C-y>
-"nnoremap <S-C-j> 15<C-e>
-
-"Making SHIFT + directional buttons move the cursor faster in normal mode
-nnoremap J 4j
-nnoremap K 4k
-nnoremap H 4h
-nnoremap L 4l
 
 "Leaving a few lines above and below the cursor when scrolling
 "to make it easier to see where you're going
