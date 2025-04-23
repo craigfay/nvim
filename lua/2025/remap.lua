@@ -53,9 +53,10 @@ vim.keymap.set({ "n", "v" }, "Y", "yy")
 vim.keymap.set({ "n", "v" }, "J", "j5", { noremap = true })
 vim.keymap.set({ "n", "v" }, "K", "k5", { noremap = true })
 
--- Format the current buffer using LSP
+-- Format the current buffer
 vim.keymap.set("n", "<leader>f", function()
-	require("conform").format({ bufnr = 0 })
+    require("conform").format({ bufnr = 0 })
+    vim.cmd("normal! gg=G")
 end)
 
 -- Improving navigation for the quickfix list
