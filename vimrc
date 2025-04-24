@@ -61,7 +61,7 @@ nmap <Leader>s :sp .<cr>
 nmap <Leader>b :b#<cr>
 
 "Quickly close the current buffer with `,q`
-nmap <Leader>q :q<cr>
+nmap <Leader>q :q!<cr>
 
 "Quickly write the current buffer with `,w`
 nmap <Leader>w :w<cr>

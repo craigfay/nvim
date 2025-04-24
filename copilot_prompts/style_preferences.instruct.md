@@ -5,6 +5,8 @@ Anytime you see a file whose extension is `.instruct.md`, assume that it's
 telling you something important about how to format your responses or what your
 task is.
 
+Important: Whenever you are explaining something, try to make your point as succintly as possible, and avoid excess elaboration.
+
 Closely follow these code formatting rules:
 
 For JavaScript and TypeScript indent with 2 spaces.
