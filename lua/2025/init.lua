@@ -41,9 +41,9 @@ autocmd('BufEnter', {
     group = MainGroup,
     callback = function()
         if vim.bo.filetype == "zig" then
-            vim.cmd.colorscheme("kyotonight")
-        else
             vim.cmd.colorscheme("dogrun")
+        else
+            vim.cmd.colorscheme("doom-one")
         end
     end
 })
@@ -54,7 +54,7 @@ autocmd('LspAttach', {
     callback = function(e)
         local opts = { buffer = e.buf }
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+        vim.keymap.set("n", "H", function() vim.lsp.buf.hover() end, opts)
 
         vim.keymap.set("n", "<leader>lws", function() vim.lsp.buf.workspace_symbol() end, opts)
         vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, opts)

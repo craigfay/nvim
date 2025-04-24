@@ -1,3 +1,7 @@
+
+-- Quickly open nvim config
+vim.keymap.set("n", "<leader>il", "<cmd>tabe ~/.config/nvim/lua/2025<cr>", { noremap = true })
+
 -- Switch tabs with "t" and "T" in normal mode
 vim.keymap.set("n", "t", "gt", { noremap = true })
 vim.keymap.set("n", "T", "gT", { noremap = true })
@@ -36,10 +40,20 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
+-- Quitting all
+vim.keymap.set("n", "<leader>Q", "<cmd>qa!<cr>")
+
 -- Prevent default "Q" behavior, because it sucks
 vim.keymap.set("n", "Q", "<nop>")
 
--- Format the current buffer using LSP, and
+-- Yank whole lines with Y
+vim.keymap.set({ "n", "v" }, "Y", "yy")
+
+-- Move the cursor faster
+vim.keymap.set({ "n", "v" }, "J", "j5", { noremap = true })
+vim.keymap.set({ "n", "v" }, "K", "k5", { noremap = true })
+
+-- Format the current buffer
 vim.keymap.set("n", "<leader>f", function()
     require("conform").format({ bufnr = 0 })
     vim.cmd("normal! gg=G")

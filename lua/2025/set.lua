@@ -1,4 +1,8 @@
 
+
+-- Setting the current directory automatically wheny switching buffers
+vim.opt.autochdir = true
+
 -- Using the fat cursor
 vim.opt.guicursor = ""
 
