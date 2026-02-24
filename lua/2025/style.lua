@@ -2,7 +2,7 @@
 
 -- Setting per-filetype indentation settings
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact", "terraform" },
     callback = function()
         vim.opt_local.tabstop = 2 -- Number of spaces for a tab
         vim.opt_local.softtabstop = 2 -- Number of spaces for editing (e.g., <Tab>, <BS>)
