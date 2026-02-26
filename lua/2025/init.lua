@@ -37,14 +37,19 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+local autocmd = vim.api.nvim_create_autocmd
+local MainGroup = vim.api.nvim_create_augroup("MainGroup", { clear = true })
+
+_G.colorscheme_set = false
+
 autocmd('BufEnter', {
     group = MainGroup,
     callback = function()
-        if vim.bo.filetype == "zig" then
-            vim.cmd.colorscheme("dogrun")
-        else
-            vim.cmd.colorscheme("doom-one")
+        if _G.colorscheme_set then
+            return
         end
+        _G.colorscheme_set = true
+        vim.cmd.colorscheme("doom-one")
     end
 })
 
