@@ -49,6 +49,8 @@ vim.keymap.set("n", "Q", "<nop>")
 -- Yank whole lines with Y
 vim.keymap.set({ "n", "v" }, "Y", "yy")
 
+vim.keymap.set('n', 'U', 'J', { noremap = true })
+
 -- Move the cursor faster
 vim.keymap.set({ "n", "v" }, "J", "j5", { noremap = true })
 vim.keymap.set({ "n", "v" }, "K", "k5", { noremap = true })
