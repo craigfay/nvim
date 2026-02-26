@@ -10,8 +10,33 @@ local f = ls.function_node
 local d = ls.dynamic_node
 local sn = ls.snippet_node
 
+
 -- Shortcut to open this file using CTRL-s
 vim.keymap.set("n", "<C-s>", "<cmd>tabe ~/.config/nvim/lua/2025/snippets.lua<CR>")
+
+
+
+ls.add_snippets("zig", {
+    s("print", fmt(
+        [[
+            std.debug.print("{{any}}\n", .{{ {} }});
+        ]], { i(1) }
+    ));
+    s("struct", fmt(
+        [[
+            pub const {} = struct {{
+                {}
+            }};
+        ]], { i(1, "Name"), i(2),
+    }));
+    s("for", fmt(
+        [[
+            for ({}, 0..) |{}, {}| {{
+                {}
+            }}
+        ]], { i(1, "items"), i(2, "item"), i(3, "idx"), i(4), }
+    ));
+})
 
 ls.add_snippets("javascript", {
     s("dependsOn", fmt(
