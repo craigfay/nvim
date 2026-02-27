@@ -30,7 +30,7 @@ return {
             end, { silent = true })
 
 
-             -- Jump to the previous jump point with alt-k
+             -- Jump to the previous jump point with alt-j
             vim.keymap.set({ "i", "s" }, "<A-j>", function()
                 if ls.jumpable(-1) then
                     ls.jump(-1)
