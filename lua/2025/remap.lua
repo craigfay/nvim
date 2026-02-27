@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+
 -- Easy mapping ot move selected text vertically
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -54,12 +55,6 @@ vim.keymap.set('n', 'U', 'J', { noremap = true })
 -- Move the cursor faster
 vim.keymap.set({ "n", "v" }, "J", "j5", { noremap = true })
 vim.keymap.set({ "n", "v" }, "K", "k5", { noremap = true })
-
--- Format the current buffer
-vim.keymap.set("n", "<leader>f", function()
-    require("conform").format({ bufnr = 0 })
-    vim.cmd("normal! gg=G")
-end)
 
 -- Improving navigation for the quickfix list
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")

@@ -1,3 +1,5 @@
+local actions = require("telescope.actions")
+
 return {
     "nvim-telescope/telescope.nvim",
 
@@ -8,27 +10,56 @@ return {
     },
 
     config = function()
-        require('telescope').setup({})
+        require('telescope').setup({
+            defaults = {
+                initial_mode = "normal",
+                mappings = {
+                    -- Scroll in the picker preview
+                    n = {
+                        ["J"] = actions.preview_scrolling_down,
+                        ["K"] = actions.preview_scrolling_up,
+                    },
+                },
+                layout_strategy = "bottom_pane", -- this is what ivy uses
+                layout_config = {
+                    height = 0.5,
+                },
+                sorting_strategy = "ascending",
+                prompt_position = "top",
+            },
+        })
 
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 
-        vim.keymap.set('n', '<leader>pws', function()
-            local word = vim.fn.expand("<cword>")
-            builtin.grep_string({ search = word })
-        end)
-        vim.keymap.set('n', '<leader>pWs', function()
-            local word = vim.fn.expand("<cWORD>")
-            builtin.grep_string({ search = word })
-        end)
+        local function project_root()
+            -- Use git root, otherwise falling back to current cwd.
+            local git_root = vim.fs.root(0, { ".git" })
+            return git_root or vim.loop.cwd()
+        end
 
-        -- Find in project
-        vim.keymap.set('n', '<leader>ps', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
+        -- Open the telescope picker
+        vim.keymap.set("n", "<leader>F", require("telescope.builtin").builtin)
 
-        vim.keymap.set('n', '<leader>ht', builtin.help_tags, {})
+        -- Search for files
+        vim.keymap.set("n", "<leader>f", function()
+
+        -- Live grep
+        vim.keymap.set("n", "<leader>lg", builtin.live_grep);
+
+            builtin.find_files({ cwd = project_root() })
+        end, { desc = "Find files (project root)" })
+
+
+        vim.keymap.set("n", "<leader>c", function()
+            require("telescope.builtin").colorscheme({
+                enable_preview = true,
+            })
+        end, { desc = "Colorscheme (live preview)" })
+
+        vim.keymap.set("n", "<leader>gs", builtin.git_status);
+        vim.keymap.set("n", "<leader>gl", builtin.git_commits);
+        vim.keymap.set("n", "<leader>gb", builtin.git_branches);
+
     end
 }
 
