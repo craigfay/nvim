@@ -6,7 +6,7 @@ return {
         version = "v2.*",
 
         -- install jsregexp (optional!).
-        -- build = "make install_jsregexp",
+        build = "make install_jsregexp",
 
         dependencies = { "rafamadriz/friendly-snippets" },
 
